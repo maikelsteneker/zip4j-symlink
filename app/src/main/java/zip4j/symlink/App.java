@@ -4,6 +4,7 @@
 package zip4j.symlink;
 
 import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.model.UnzipParameters;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +15,8 @@ public class App {
         final String path = App.class.getResource("/file.zip").getPath();
         final ZipFile zipFile = new ZipFile(path);
         final Path tempDirectory = Files.createTempDirectory("tmp");
-        zipFile.extractAll(tempDirectory.toString());
+        final UnzipParameters params = new UnzipParameters();
+        params.setExtractSymbolicLinks(false);
+        zipFile.extractAll(tempDirectory.toString(), params);
     }
 }
